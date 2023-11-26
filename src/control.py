@@ -27,7 +27,8 @@ class RubicControler:
         }
 
     def prepare(self):
-        self.ser = serial.Serial('/dev/tty.usbmodem1422401', 115200)
+        self.ser = serial.Serial('COM5', 250000)
+        time.sleep(1)
         # Set to relative position mode
         self.write_gcode('G91')
         # Disable cold extrusion checking

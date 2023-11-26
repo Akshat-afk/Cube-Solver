@@ -56,8 +56,8 @@ class CubeStatus:
         # The order of sides to output cube status
         self.side_order = ['U', 'R', 'F', 'D', 'L', 'B']
         self.colors = ['B', 'G', 'O', 'R', 'W', 'Y']
-        self.model = load_model('./color_detection-v4-7.h5', compile = False)
-        self.decision_tree = load('./decision_tree-v4-7.joblib')
+        self.model = load_model('src\color_detection-v4-7.h5', compile=False)
+        self.decision_tree = load('src\decision_tree-v4-7.joblib')
 
         # For display status
         self.STICKER_AREA_TILE_SIZE = 30
@@ -67,11 +67,11 @@ class CubeStatus:
         self.SIDE_AREA_POSITION = {'U': (1, 0), 'L': (0, 1), 'F': (1, 1), 'R': (2, 1), 'B': (3, 1), 'D': (1, 2)}
         self.color_palette = {
             'R'   : (255, 0, 0),
-            'O': (255, 165, 0),
-            'B'  : (0, 0, 255),
-            'G' : (0, 255, 0),
-            'W' : (255, 255, 255),
-            'Y': (255, 255, 0)
+            'O'   : (255, 165, 0),
+            'B'   : (0, 0, 255),
+            'G'   : (0, 255, 0),
+            'W'   : (255, 255, 255),
+            'Y'   : (255, 255, 0)
         }
 
         # Side to color mapping
@@ -347,13 +347,13 @@ class CubeStatus:
 
     def detect_status(self):
         # Capture pictures
-        self.capture_pictures(1, '/Users/wangyu/Downloads')
+        self.capture_pictures(1, 'C:/Users/91721/OneDrive/Desktop/codeing/Cube Solver/captures')
         #self.capture_pictures()
 
-        #self.first_pic = cv2.cvtColor(cv2.imread('/Users/wangyu/Downloads/0-1.jpg'), cv2.COLOR_BGR2RGB)
-        #self.second_pic = cv2.cvtColor(cv2.imread('/Users/wangyu/Downloads/0-2.jpg'), cv2.COLOR_BGR2RGB)
-        #self.first_pic = cv2.imread('/Users/wangyu/Downloads/0-1.jpg')
-        #self.second_pic = cv2.imread('/Users/wangyu/Downloads/0-2.jpg')
+        #self.first_pic = cv2.cvtColor(cv2.imread('C:\Users\91721\OneDrive\Desktop\codeing\Cube Solver\captures/0-1.jpg'), cv2.COLOR_BGR2RGB)
+        #self.second_pic = cv2.cvtColor(cv2.imread('C:\Users\91721\OneDrive\Desktop\codeing\Cube Solver\captures/0-2.jpg'), cv2.COLOR_BGR2RGB)
+        #self.first_pic = cv2.imread('C:\Users\91721\OneDrive\Desktop\codeing\Cube Solver\captures/0-1.jpg')
+        #self.second_pic = cv2.imread('C:\Users\91721\OneDrive\Desktop\codeing\Cube Solver\captures/0-2.jpg')
 
         # Predict colors for captured pictures
         first_pic_predicts = self.predict_colors_with_cnn(self.first_pic)
@@ -436,7 +436,7 @@ def main():
     #split_training_testing('/Users/wangyu/Pictures/v4-7/extracted')
 
     # Show polygons
-    #cube_status.show_polygons(os.path.join('/Users/wangyu/Downloads', '0-1.jpg'))
+    #cube_status.show_polygons(os.path.join('C:\Users\91721\OneDrive\Desktop\codeing\Cube Solver\captures', '0-1.jpg'))
 
     # Test change_status
     input_status = 'UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB'
