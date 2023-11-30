@@ -12,9 +12,9 @@ class RubicControler:
                 "F": ['G0 Y10'],
                 "F'": ['G0 Y-10'],
                 "F2": ['G0 Y20'],
-                "R": ['G0 Z-2'],
-                "R'": ['G0 Z2'],
-                "R2": ['G0 Z4'],
+                "R": ['T2', 'G0 E-1.6'],
+                "R'": ['T2', 'G0 E1.6'],
+                "R2": ['T2', 'G0 E3.2'],
                 "L": ['T1', 'G0 E-1.6'],
                 "L'": ['T1', 'G0 E1.6'],
                 "L2": ['T1', 'G0 E3.2'],
@@ -23,7 +23,8 @@ class RubicControler:
                 "B2": ['T0', 'G0 E-3.2'],
                 "U": ['T2', 'G0 E-1.6'],
                 "U'": ['T2', 'G0 E1.6'],
-                "U2": ['T2', 'G0 E3.2']
+                "U2": ['T2', 'G0 E3.2'],
+                "stop": ['M84']
         }
 
     def prepare(self):
@@ -34,12 +35,35 @@ class RubicControler:
         # Disable cold extrusion checking
         self.write_gcode('M302 P1')
         # Slower extruder speed (for L, B and U) to 5
-        self.write_gcode('M203 E5')
+        # self.write_gcode('M203 E5')
 
     def turn(self, command):
-        if not command in self.gcode_map.keys():
-            print('Command not supported.')
-            return
+        # U_moves = ['R', 'L' ,'F2' ,'B2' ,"R'" ,"L'" ,"D" ,"R" ,"L" ,"F2" ,"B2" ,"R'" ,"L'"]
+        # Up_moves = ['R', 'L', 'F2', 'B2', "R'", "L'",
+        #            "D'", "R", "L", "F2", "B2", "R'", "L'"]
+        # U2_moves = ['R', 'L', 'F2', 'B2', "R'", "L'",
+        #             "D", "R", "L", "F2", "B2", "R'", "L'", 'R', 'L', 'F2', 'B2', "R'", "L'",
+        #             "D", "R", "L", "F2", "B2", "R'", "L'"]
+
+        # if not command in self.gcode_map.keys():
+        #     print('Command not supported.')
+        #     return
+        # # (R L F2 B2 R' L') D (R L F2 B2 R' L') == U
+        # if command == 'U':
+        #     for move in U_moves:
+        #         for gcode in self.gcode_map[move]:
+        #             self.write_gcode(gcode)
+        # elif command == "U'":
+        #     for move in Up_moves:
+        #         for gcode in self.gcode_map[move]:
+        #             self.write_gcode(gcode)
+        # elif command == "U2":
+        #     for move in U2_moves:
+        #         for gcode in self.gcode_map[move]:
+        #             self.write_gcode(gcode)
+        # else:
+        #     for gcode in self.gcode_map[command]:
+        #         self.write_gcode(gcode)
         
         for gcode in self.gcode_map[command]:
             self.write_gcode(gcode)
@@ -49,6 +73,8 @@ class RubicControler:
         moves = []
         for i in range(num_moves):
             move = random.choice(all_moves)
+            if move == 'stop':
+                continue
             self.turn(move)
             moves.append(move)
         return moves

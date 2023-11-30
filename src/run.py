@@ -53,23 +53,26 @@ def main():
         if key == 27:
             break
 
-        choice = input("Choose the action you would like to perform, enter to exit. If your cube is not solved, you should perform status detection first.\n"
-                       "1. Detect status\n"
-                       "2. Scramble\n"
-                       "3. Solve\n"
-                       "4. Perform specific moves\n"
-                       "5. Test motors\n")
+        choice = input("Choose the action you would like to perform, enter to exit.\n"
+                    #    "1. Detect status\n"
+                       "1. Scramble\n"
+                       "2. Solve\n"
+                       "3. Perform specific moves\n"
+                       "4. Test motors\n"
+                       "5. Stop motors\n")
 
+        # if choice == '1':
+        #     detect()
         if choice == '1':
-            detect()
-        elif choice == '2':
             scramble()
-        elif choice == '3':
+        elif choice == '2':
             solve()
-        elif choice == '4':
+        elif choice == '3':
             customized_moves()
-        elif choice == '5':
+        elif choice == '4':
             test_motors()
+        elif choice == '5':
+            controler.turn('stop')
         elif choice == '':
             break
         else:
